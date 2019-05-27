@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+<div class="container">
+    <h1>GC CARS</h1>
+    <p>Stefana Żeromskiego 116, 90-924 Łódź</p>
+    <h1>Edit car</h1>
+    <div class="col-md-4">
+        <form th:object="${car}" th:action="@{../save}" action="#" method="post">
+            <input type="hidden" th:field="*{id}" class="form-control"/>
+            <input type="hidden" th:field="*{name}" class="form-control"
+                   placeholder="Name"/>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="text" th:field="*{description}" class="form-control"
+                   placeholder="Description"/>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="text" th:field="*{totalPrice}" class="form-control"
+                   placeholder="Total price"/>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="text" th:field="*{rentalPricePerDay}" class="form-control"
+                   placeholder="Rental price per day"/>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="submit" class="btn btn-primary" value="Save"/>
+        </form>
+    </div>
+    <footer th:replace="layout :: footer"></footer>
+</div>
+</body>
+
+</html>

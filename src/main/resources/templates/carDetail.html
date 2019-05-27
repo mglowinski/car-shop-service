@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+
+<div class="container">
+    <div class="row text-center">
+        <img width="600" th:src="@{'/images/'+${carById.getName()}+'.png'}"/>
+        <div class="caption">
+            <h3 th:text="${carById.getName()}"></h3>
+            <p th:text="${carById.getDescription()}"></p>
+            <h6 th:text="'Total price: '+ ${carById.getTotalPrice()} + ' PLN'"></h6>
+            <h6 th:text="'Rental price: '+ ${carById.getRentalPricePerDay()} + ' PLN / day'"></h6>
+            <p>
+                <a href="#" class="btn btn-primary"
+                   th:href="@{'/cars/' + ${carById.getId()} + '/books'}">Book Now!</a>
+            </p>
+        </div>
+    </div>
+    <hr>
+    <footer th:replace="layout :: footer"></footer>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+<div class="container">
+    <h1>GC CARS</h1>
+    <p>Stefana Żeromskiego 116, 90-924 Łódź</p>
+    <h2>All reservations:</h2>
+    <div class="row">
+        <div class="main">
+            <div class="table responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th class="col-sm-1">Car</th>
+                        <th class="col-sm-4">User</th>
+                        <th class="col-sm-2">Start date</th>
+                        <th class="col-sm-2">End date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${reservations.isEmpty()}">
+                        <td colspan="3">No Reservations</td>
+                    </tr>
+                    <tr data-th-each="reservation : ${reservations}">
+                        <td data-th-text="${reservation.getCar().getName()}"></td>
+                        <td data-th-text="${reservation.getUser().getFirstName() + ' ' +
+                            reservation.getUser().getLastName()}"></td>
+                        <td data-th-text="${reservation.getStartDate().getTime()}"></td>
+                        <td data-th-text="${reservation.getEndDate().getTime()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h2>Cars available:</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Total price</th>
+                <th>Rental price per day</th>
+                <th sec:authorize="hasRole('ADMIN')">Actions</th>
+            </tr>
+            <tr th:each="car : ${cars}">
+                <td th:text="${car.getName()}"></td>
+                <td th:text="${car.getDescription()}"></td>
+                <td th:text="${car.getTotalPrice()}"></td>
+                <td th:text="${car.getRentalPricePerDay()}"></td>
+                <td>
+                    <a sec:authorize="hasRole('ADMIN')"
+                       th:href="@{/cars/edit/{id}(id=${car.getId()})}"
+                       class="btn btn-primary btn-xs">Edit</a>
+                    <a sec:authorize="hasRole('ADMIN')"
+                       th:href="@{/cars/delete/{id}(id=${car.getId()})}"
+                       class="btn btn-danger btn-xs">Delete</a>
+                </td>
+            </tr>
+        </table>
+        <a sec:authorize="hasRole('ADMIN')"
+           href="/cars/add" class="btn btn-primary">Add Car</a>
+    </div>
+
+    <footer th:replace="layout :: footer"></footer>
+</div>
+</body>
+
+</html>

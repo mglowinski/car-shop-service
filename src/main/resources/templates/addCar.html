@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+
+<div class="container">
+    <h1>New student</h1>
+    <div class="col-md-4">
+        <form th:object="${car}" th:action="@{/cars/save}" action="#" method="post">
+            <input type="text" th:field="*{name}" class="form-control"
+                   placeholder="Name"/>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="text" th:field="*{description}" class="form-control"
+                   placeholder="Description"/>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="text" th:field="*{totalPrice}" class="form-control"
+                   placeholder="Total price"/>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="text" th:field="*{rentalPricePerDay}" class="form-control"
+                   placeholder="Rental price per day"/>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="submit" class="btn btn-primary" value="Save">
+        </form>
+    </div>
+</div>
+</body>
+</html>

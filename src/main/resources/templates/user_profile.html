@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+<div class="container">
+    <h1>GC CARS</h1>
+    <p>Stefana Żeromskiego 116, 90-924 Łódź</p>
+
+    <h1>User profile</h1>
+    <div th:object="${user}">
+        <p>Name: <span th:text="*{firstName}"></span></p>
+        <p>Surname: <span th:text="*{lastName}"></span></p>
+    </div>
+
+    <p>Your car reservations:</p>
+    <div class="row">
+        <div class="main">
+            <div class="table responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th class="col-sm-1">Car</th>
+                        <th class="col-sm-4">Start date</th>
+                        <th class="col-sm-4">End date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${reservations.isEmpty()}">
+                        <td colspan="3"> No Reservations Available</td>
+                    </tr>
+                    <tr data-th-each="reservation : ${reservations}">
+                        <td data-th-text="${reservation.getCar().getName()}"></td>
+                        <td data-th-text="${reservation.getStartDate().getTime()}"></td>
+                        <td data-th-text="${reservation.getEndDate().getTime()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout :: footer"></footer>
+</div>
+</body>
+
+</html>

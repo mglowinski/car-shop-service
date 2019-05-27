@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+<nav th:replace="layout :: nav"></nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <h3>Resume</h3>
+            <hr>
+        </div>
+    </div>
+    <h4>Chosen car:</h4>
+    <hr>
+    <div class="row">
+        <div class="col-sm-3 text-right">
+            <div class="center-block">
+                <img height="100" th:src="@{'/images/'+${car.getName()}+'.png'}"/>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="caption">
+                <h3 th:text="${car.getName()}"></h3>
+                <h5 th:text="${car.getDescription()}"></h5>
+                <h5 th:text="'Price: '+${car.getRentalPricePerDay()}+ ' PLN / day'"></h5>
+            </div>
+        </div>
+    </div>
+    <h4>Your data:</h4>
+    <hr>
+    <div class="row">
+        <div class="col-sm-3 text-right">
+            <div class="center-block">
+                <img height="130" th:src="@{'/images/customer-blank.png'}"/>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="caption">
+                <h3 th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></h3>
+                <h5 th:text="'Borrowed date range: '+${#dates.format(borrowedDate.getStartDate(), 'dd.MM.yyyy')}+
+                    ' - ' +${#dates.format(borrowedDate.getEndDate(), 'dd.MM.yyyy')}"></h5>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <div class="alert alert-info alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                    <strong>Info!</strong>
+                    <p>Click finish to complete process.</p>
+                    <p>Cancel button will delete every your data.</p>
+                </div>
+                <div class="alert alert-info alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                    <strong>Info!</strong>
+                    <p>Your Car will wait for you in the sallon located Stefana Żeromskiego 116, 90-924 Łódź.</p>
+                    <p>Please bring given amount of money to pay for the service.</p>
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a th:href="@{/cars}"><input type="button" class="btn btn-danger"
+                                                     value="Cancel"/></a>
+                    </div>
+                    <div class="col-sm-6">
+                        <form th:action="@{/cars/books/resume}" method="post">
+                            <button class="btn btn-success" type="submit">Finish</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+    <hr>
+    <footer th:replace="layout :: footer"></footer>
+</div>
+</body>
+
+</html>
